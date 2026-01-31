@@ -1,26 +1,7 @@
 /**
- * listFilesInFolderBatch()
- *
- * - Mục đích: Lấy thông tin file từ thư mục Google Drive và ghi vào Google Sheet, nhưng được tối ưu để xử lý số lượng file lớn bằng cách chia nhỏ công việc.
- * - Tính năng nổi bật:
- *   1. Chia nhỏ công việc: Mỗi lần chỉ xử lý một số lượng file tối đa (được thiết lập là 100) để tránh lỗi thời gian thực thi của Google Apps Script.
- *   2. Lưu và khôi phục trạng thái: Sử dụng PropertiesService để lưu trạng thái của file cuối cùng đã xử lý, cho phép tiếp tục từ file còn lại trong lần chạy sau.
- *   3. Kiểm tra và tránh trùng lặp: Kiểm tra nếu file đã được ghi vào Google Sheet trước khi ghi để tránh việc ghi trùng lặp thông tin file.
- *   4. Tự động xóa trigger và trạng thái: Sau khi tất cả các file đã được xử lý, hàm sẽ tự động xóa các trạng thái và trigger không cần thiết để tránh lãng phí tài nguyên.
- *   5. Thông báo chi tiết: Ghi log về những property và trigger đã được xóa, giúp người dùng theo dõi trạng thái của hệ thống.
- * - Chức năng chính:
- *   - Nếu Google Sheet chưa có dữ liệu, thiết lập hàng tiêu đề.
- *   - Lấy danh sách tất cả các file trong thư mục và sắp xếp theo tên để đảm bảo thứ tự xử lý nhất quán.
- *   - Lưu trạng thái của file cuối cùng đã xử lý để sử dụng trong lần chạy tiếp theo.
- *   - Duyệt qua danh sách file và ghi thông tin vào Google Sheet.
- *   - Nếu đạt đến giới hạn số file cần xử lý, lưu trạng thái và thoát khỏi hàm.
- *   - Khi tất cả các file đã được xử lý, xóa các property và trigger không cần thiết.
- * - Ưu điểm so với Version 1:
- *   1. Xử lý hiệu quả số lượng file lớn nhờ chia nhỏ công việc thành các lô (batch).
- *   2. Tránh lặp lại các file đã ghi và duy trì trạng thái để xử lý liên tục.
- *   3. Tự động xóa các trigger và property để tránh dư thừa tài nguyên sau khi hoàn thành.
+ * Exports Google Drive folder contents to Google Sheets with batch processing.
+ * See README.md for full documentation and setup instructions.
  */
-
 function listFilesInFolderBatch() {
   var folderId = '1DIdrik-vZEaoMHKdrPMXXIpk'; // Folder ID đã được thay thế
   var folder = DriveApp.getFolderById(folderId);
